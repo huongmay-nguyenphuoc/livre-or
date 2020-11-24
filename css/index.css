@@ -1,0 +1,73 @@
+footer {
+    font-family: 'News Cycle', sans-serif;
+}
+
+main {
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Nerko One', cursive;
+}
+
+#mainIndex {
+    background: url("../images/f8c021406dc58b2d9dd3129c73b19709.jpg");
+    background-size: cover;
+}
+
+#mainInscription {
+    background: url("../images/fbbe3b08c3e758a09a8946fe1a92e359.jpg");
+    background-size: cover;
+}
+
+#mainProfil {
+    background: url("../images/f46ac6071637a6ef2b4155c0bc6a64e6.jpg");
+    background-size: cover;
+}
+
+#mainLivre {
+    background: url("../images/D0f26wNXQAUMzi9.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#mainCommentaire {
+    background: url("../images/87f6f115d74a2928c702fc805f024340.jpg");
+    background-size: cover;
+}
+
+.mainSection {
+    height: 100vh;
+}
+
+a {
+    color: #6168DD;
+}
+
+a:hover {
+    color: white;
+}
+
+.btn-large:hover {
+    color: #6168DD;
+}
+
+form {
+    background-color: #80cbc4;
+}
+
+#formProf {
+    background-color: #f8bbd0;
+}
+
+.input-field,
+.input-field label {
+    color: white;
+}
+
+.input-field input[type=text],
+.input-field input[type=password] {
+    border-bottom: 1px solid white;
+}
+
+#paragraphe {
+    padding: 20px;
+}
