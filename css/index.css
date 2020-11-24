@@ -1,6 +1,4 @@
-footer {
-    font-family: 'News Cycle', sans-serif;
-}
+/* Général */
 
 main {
     min-height: 100vh;
@@ -8,12 +6,27 @@ main {
     font-family: 'Nerko One', cursive;
 }
 
+.mainSection {
+    height: 100vh;
+}
+
+footer {
+    font-family: 'News Cycle', sans-serif;
+}
+
+#paragraphe {
+    padding: 20px;
+}
+
+
+/* Backgrounds */
+
 #mainIndex {
     background: url("../images/f8c021406dc58b2d9dd3129c73b19709.jpg");
     background-size: cover;
 }
 
-#mainInscription {
+.mainInscription {
     background: url("../images/fbbe3b08c3e758a09a8946fe1a92e359.jpg");
     background-size: cover;
 }
@@ -34,9 +47,8 @@ main {
     background-size: cover;
 }
 
-.mainSection {
-    height: 100vh;
-}
+
+/* Couleurs */
 
 a {
     color: #6168DD;
@@ -66,8 +78,4 @@ form {
 .input-field input[type=text],
 .input-field input[type=password] {
     border-bottom: 1px solid white;
-}
-
-#paragraphe {
-    padding: 20px;
 }

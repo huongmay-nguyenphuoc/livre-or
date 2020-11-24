@@ -13,7 +13,7 @@ if (isset($_POST['formConnexion'])) {
 
     if (isset($login, $password)) {
         try { //connexion bdd
-            $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', 'root');
+            $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         }
@@ -61,12 +61,12 @@ if (isset($_POST['formConnexion'])) {
 </head>
 
 <body>
-    <main id="mainInscription">
+    <main class="mainInscription">
         <section class="section no-pad-bot valign-wrapper center mainSection">
             <article class="container">
                 <div class="row">
-                    <form class="col m6 offset-m3 s10 offset-s1" action="connexion.php" method="post">
 
+                    <form class="col m6 offset-m3 s10 offset-s1" action="connexion.php" method="post">
                         <div class="row center">
                             <div class="input-field col s6 m10 offset-m1 offset-s3">
                                 <input id="login" name="login" type="text" class="validate">
@@ -84,12 +84,12 @@ if (isset($_POST['formConnexion'])) {
                         <div class="row center">
                             <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formConnexion">Se connecter</button>
                         </div>
-
                     </form>
+
                 </div>
                 <?php
                     if (isset($erreur)) {
-                        echo '<p class="white-text">' . $erreur . '</p>';
+                    echo '<p class="white-text">' . $erreur . '</p>';
                     }
                 ?>
             </article>
@@ -103,10 +103,10 @@ if (isset($_POST['formConnexion'])) {
                 <div class="col l6 s12">
                     <h5 class="white-text">Aujourd'hui</h5>
                     <?php echo $date = date('l d F'); ?>
-                    <blockquote><em>
-                            L'automne est la saison la plus rude.
+                    <blockquote>
+                            <em>L'automne est la saison la plus rude.
                             Les feuilles tombent, et elles tombent comme si elles tombaient amoureuses du sol.</em>
-                        #Dreamy_is_a_mood
+                            #Dreamy_is_a_mood
                     </blockquote>
                 </div>
                 <div class="col l4 offset-l2 s12">

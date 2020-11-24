@@ -1,7 +1,7 @@
 <?php
 session_start();
 try { //connexion bdd
-    $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', 'root');
+    $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
 } catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
@@ -16,12 +16,13 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
         $newpassword = htmlspecialchars($_POST['password']);
         $hashed_newpassword = password_hash(($newpassword), PASSWORD_DEFAULT);
 
-       
-        $query= 'SELECT * FROM utilisateurs where login=?';
-        $checklogin= $bdd->prepare($query);
+
+        $query = 'SELECT * FROM utilisateurs where login=?'; //récup données bdd
+        $checklogin = $bdd->prepare($query);
         $checklogin->execute([$newpseudo]);
         $usercheck = $checklogin->rowCount();
-       if (($_SESSION['login'] == $newpseudo AND $usercheck == 1) OR ($usercheck == 0)) {
+
+        if (($_SESSION['login'] == $newpseudo and $usercheck == 1) or ($usercheck == 0)) { //si correspond, update
 
             $query = 'UPDATE utilisateurs SET login = ?, password = ? WHERE id = ?';
             $insertnewdata = $bdd->prepare($query);
@@ -29,7 +30,7 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
             $succes = $newpseudo . ', le changement a bien été enregistré.';
         } else {
             $erreur = "Cet identifiant existe déjà.";
-        } 
+        }
     }
 } else {
     $erreur = 'Remplissez tous les champs s\'il-vous-plaît.';
@@ -46,7 +47,7 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile - Dreamy</title>
+    <title>Profil - Dreamy</title>
 
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="../css/index.css">
@@ -65,43 +66,41 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
                     if (isset($_SESSION['id'])) {
                         echo '<form class="col m6 offset-m3 s10 offset-s1" action="profil.php" method="post" id="formProf">
 
-      <div class="row center">
-        <div class="input-field col s10 m6 offset-m3 offset-s1">
-          <input id="login" name="login" type="text" class="validate">
-          <label for="login">Login</label>
-        </div>
-      </div>
-     
-      <div class="row center">
-      <div class="input-field col s10 m6 offset-m3 offset-s1">
-          <input id="password" name="password" type="password" class="validate">
-          <label for="password">Password</label>
-      </div>
-      <div class="input-field col s10 m6 offset-m3 offset-s1">
-          <input id="passwordverif" name="passwordverif" type="password" class="validate">
-          <label for="passwordverif">Vérification</label>
-      </div>
-      </div>
+                                <div class="row center">
+                                    <div class="input-field col s10 m6 offset-m3 offset-s1">
+                                    <input id="login" name="login" type="text" class="validate">
+                                    <label for="login">Login</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="row center">
+                                <div class="input-field col s10 m6 offset-m3 offset-s1">
+                                    <input id="password" name="password" type="password" class="validate">
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="input-field col s10 m6 offset-m3 offset-s1">
+                                    <input id="passwordverif" name="passwordverif" type="password" class="validate">
+                                    <label for="passwordverif">Vérification</label>
+                                </div>
+                                </div>
 
-      <div class="row center">
-      <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formProfil" >Modifier</button>
-      </div>
-      
-    </form>
-  </div>';
-
-        if (isset($erreur)) {
-            echo '<p class="white-text">' . $erreur . '</p>';
-            } elseif (isset($succes)) {
-            echo  '<p class="white-text">' . $succes . '</p>';
-            }
-
-}     else {
- echo '<div class="row">
- <p class="pink lighten-2 col s12 z-depth-2" id="paragraphe">Qui êtes-vous ? Veuillez vous connecter</p>    </div>';
-     }
-
-    ?>
+                                <div class="row center">
+                                <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formProfil" >Modifier</button>
+                                </div>
+                            </form>
+                </div>';
+                            if (isset($erreur)) {
+                                echo '<p class="white-text">' . $erreur . '</p>';
+                            } elseif (isset($succes)) {
+                                echo  '<p class="white-text">' . $succes . '</p>';
+                            }
+                    
+                    } else {
+                        echo '<div class="row">
+                        <p class="pink lighten-2 col s12 z-depth-2" id="paragraphe">Qui êtes-vous ? Veuillez vous connecter</p>
+                        </div>';
+                    }
+                    ?>
             </article>
         </section>
     </main>
@@ -113,10 +112,10 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
                 <div class="col l6 s12">
                     <h5 class="white-text">Aujourd'hui</h5>
                     <?php echo $date = date('l d F'); ?>
-                    <blockquote><em>
-                            L'automne est la saison la plus rude.
+                    <blockquote>
+                            <em>L'automne est la saison la plus rude.
                             Les feuilles tombent, et elles tombent comme si elles tombaient amoureuses du sol.</em>
-                        #Dreamy_is_a_mood
+                            #Dreamy_is_a_mood
                     </blockquote>
                 </div>
                 <div class="col l4 offset-l2 s12">

@@ -1,16 +1,19 @@
 <?php
-session_start();
+    session_start();
 
-try { //connexion bdd
-    $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', 'root');
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+    try { //connexion bdd
+        $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
 
-$query = "SELECT commentaire, login, date FROM commentaires INNER JOIN utilisateurs ON utilisateurs.id = commentaires.id_utilisateur ORDER BY commentaires.id desc;";
-$sql =  $bdd->prepare($query);
-$sql->execute();
-$res = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT commentaire, login, date FROM commentaires 
+    INNER JOIN utilisateurs ON utilisateurs.id = commentaires.id_utilisateur 
+    ORDER BY commentaires.id desc;";
+    
+    $sql =  $bdd->prepare($query);
+    $sql->execute();
+    $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -32,40 +35,32 @@ $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <main id="mainLivre">
-                
-                <?php
-                    foreach($res as $row)
-                    {
-                        echo '  <section class="section center">
-                        <div class=" container pink lighten-5">
-                        <div class="row ">
-                        <div class="col s12">
-                        <h5>posté le ' . 
-                        $row['date'] . ' par <em class="pink-text lighten-2">' .
-                        $row['login'] .   '</em></h5>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col s12"><p>' .
-                        $row['commentaire'] . '</p> 
-                        </div>
-                        </div>
-                        </div>
-                        </section>
-                        ';
-                    }            
-                ?>
+        <?php
+            foreach ($res as $row) { // génération des commentaires
+                echo '  <section class="section center">
+                            <div class=" container pink lighten-5">
+                                <div class="row ">
+                                    <div class="col s12">
+                                        <h5>posté le ' . $row['date'] . ' par <em class="pink-text lighten-2">' . $row['login'] .   '</em></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <p>' . $row['commentaire'] . '</p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </section>';
+            }
 
-             
-  
-        
-               
-        
-        <div class="section">
-<div class="container center">
-        <a href="commentaire.php" class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i class="material-icons">add</i></a>
-                </div>
-                </div>
+            if (isset($_SESSION['id'])) { //bouton ajout commentaire si connecté
+                echo '<div class="section">
+                        <div class="container center">
+                            <a href="commentaire.php" class="btn-floating btn-large waves-effect waves-light pink lighten-2"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>';
+            }
+        ?>
     </main>
 
 
@@ -75,10 +70,10 @@ $res = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col l6 s12">
                     <h5 class="white-text">Aujourd'hui</h5>
                     <?php echo $date = date('l d F'); ?>
-                    <blockquote><em>
-                            L'automne est la saison la plus rude.
+                    <blockquote>
+                            <em>L'automne est la saison la plus rude.
                             Les feuilles tombent, et elles tombent comme si elles tombaient amoureuses du sol.</em>
-                        #Dreamy_is_a_mood
+                            #Dreamy_is_a_mood
                     </blockquote>
                 </div>
                 <div class="col l4 offset-l2 s12">

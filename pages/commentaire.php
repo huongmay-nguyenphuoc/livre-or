@@ -1,27 +1,23 @@
 <?php
-session_start();
-try { //connexion bdd
-    $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', 'root');
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+    session_start();
+    try { //connexion bdd
+        $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
+    }
 
-if (isset($_POST['formComm'])) {
-$commentaire = htmlspecialchars($_POST['commentaire']);
+    if (isset($_POST['formComm'])) {
+        $commentaire = htmlspecialchars($_POST['commentaire']);
 
-date_default_timezone_set('Europe/Paris');
-$date = date("Y-m-d");
+        date_default_timezone_set('Europe/Paris');
+        $date = date("Y-m-d");
 
-$query = 'INSERT INTO commentaires (commentaire, id_utilisateur, date) VALUES (?,?,?);';
-$sql = $bdd->prepare($query);
-$sql->execute(array($commentaire, $_SESSION['id'], $date));
-$succes = 'Le commentaire a bien été envoyé, merci belle âme.';
-}
-
+        $query = 'INSERT INTO commentaires (commentaire, id_utilisateur, date) VALUES (?,?,?);';
+        $sql = $bdd->prepare($query);
+        $sql->execute(array($commentaire, $_SESSION['id'], $date));
+        $succes = 'Le commentaire a bien été envoyé, merci belle âme <3.';
+    }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,11 +38,10 @@ $succes = 'Le commentaire a bien été envoyé, merci belle âme.';
 <body>
     <main id="mainCommentaire">
         <section class="section valign-wrapper center mainSection">
+            <article class="container">
+                <div class="row">
 
-        <article class="container">
-            <div class="row">
                     <form class="col m12" action="commentaire.php" method="post">
-
                         <div class="row center">
                             <div class="input-field col m12">
                                 <input id="commentaire" name="commentaire" type="text" class="validate white-text">
@@ -57,21 +52,19 @@ $succes = 'Le commentaire a bien été envoyé, merci belle âme.';
                         <div class="row center">
                             <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formComm">Envoyer</button>
                         </div>
-
                     </form>
-</div>
-<?php
-                  if (isset($succes)) {
+
+                </div>
+
+                <?php
+                if (isset($succes)) {
                     echo '<p class="white-text">' . $succes . '</p>';
-                    }
+                }
                 ?>
-              
-        </article>
 
+            </article>
         </section>
-      
     </main>
-
 
     <footer class="page-footer pink lighten-3">
         <div class="container">
@@ -96,10 +89,10 @@ $succes = 'Le commentaire a bien été envoyé, merci belle âme.';
                             echo  '<li><a href="profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
                             <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
                         }
-                        
+
                         ?>
-                        
-                  <li><a href="livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
+
+                        <li><a href="livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
                     </ul>
                 </div>
             </div>

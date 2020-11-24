@@ -20,7 +20,7 @@ session_start();
 
       if (isset($login, $hashed_password)) {
           try { //connexion bdd
-              $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', 'root');
+              $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
           } catch (Exception $e) {
               die('Erreur : ' . $e->getMessage());
           }
@@ -62,14 +62,14 @@ session_start();
     </head>
 
     <body>
-        <main id="mainInscription">
+        <main class="mainInscription">
             <section class="section no-pad-bot valign-wrapper center mainSection">
               <article class="container">
                 <div class="row">
-                  <form class="col m6 offset-m3 s10 offset-s1" action="inscription.php" method="post" >
 
+                  <form class="col m6 offset-m3 s10 offset-s1" action="inscription.php" method="post">
                     <div class="row center">
-                      <div class="input-field col s12 center">
+                      <div class="input-field col s11 m12">
                         <input id="login" name="login" type="text" class="validate" required>
                         <label for="login">Login</label>
                       </div>
@@ -89,8 +89,8 @@ session_start();
                     <div class="row center">
                       <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formInscription" >S'inscrire</button>
                     </div>
-                    
                   </form>
+
                 </div>
                 <?php
                   if (isset($erreur)) {
@@ -108,22 +108,22 @@ session_start();
               <div class="col l6 s12">
                   <h5 class="white-text">Aujourd'hui</h5>
                   <?php echo $date = date('l d F');?>
-                  <blockquote><em>
-                    L'automne est la saison la plus rude.
+                  <blockquote>
+                    <em>L'automne est la saison la plus rude.
                     Les feuilles tombent, et elles tombent comme si elles tombaient amoureuses du sol.</em>
                     #Dreamy_is_a_mood
                   </blockquote>
               </div>
-              <div class="col l4 offset-l2 s12">
+              <div class="col l4 offset-l1 s12">
                 <ul>
                 <li><a href="../index.php"><i class="material-icons">keyboard_backspace</i> Accueil</a></li>
                   <?php
-                  if (!isset($_SESSION['id'])) {
-                    echo '<li><a href="connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
-                  } else {
-                    echo  '<li><a href="profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
-                    <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
-                  }
+                    if (!isset($_SESSION['id'])) {
+                      echo '<li><a href="connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
+                    } else {
+                      echo  '<li><a href="profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
+                      <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
+                    }
                   ?>
                   <li><a href="livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
                 </ul>
