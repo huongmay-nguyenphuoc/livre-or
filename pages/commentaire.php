@@ -84,14 +84,12 @@
                         <?php
                         if (!isset($_SESSION['id'])) {
                             echo '<li><a href="inscription.php"><i class="material-icons">create</i> Inscription</a></li>
-                    <li><a href="connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
+                            <li><a href="connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
                         } else {
                             echo  '<li><a href="profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
                             <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
                         }
-
                         ?>
-
                         <li><a href="livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
                     </ul>
                 </div>

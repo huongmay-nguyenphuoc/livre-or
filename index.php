@@ -28,12 +28,11 @@ session_start();
                             étudier et regretter des moments qui n'ont jamais eu lieu</h5>
                     </div>
                     <div class="row center">
-                        <?php 
-                          if (!isset($_SESSION['id'])) {
-                          echo'<a href="pages/inscription.php" class="btn-large waves-effect waves-light pink lighten-3">Inscription</a>';
-                          } else {
-                          echo'<a href="pages/profil.php" class="btn-large waves-effect waves-light pink lighten-3">Profil</a>';
-                        }?>
+                        <?php if (!isset($_SESSION['id'])) : ?>
+                          <a href="pages/inscription.php" class="btn-large waves-effect waves-light pink lighten-3">Inscription</a>
+                        <?php else : ?>
+                          <a href="pages/profil.php" class="btn-large waves-effect waves-light pink lighten-3">Profil</a>
+                        <?php endif; ?>
                     </div>
                 </article>
         </section>
@@ -54,15 +53,13 @@ session_start();
               </div>
               <div class="col l4 offset-l2 s12">
                 <ul>
-                  <?php 
-                    if (!isset($_SESSION['id'])) {
-                      echo '<li><a href="pages/inscription.php"><i class="material-icons">create</i> Inscription</a></li>
-                      <li><a href="pages/connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
-                    } else {
-                      echo '<li><a href="pages/profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
-                      <li><a href="pages/logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
-                    }
-                  ?>
+                  <?php if (!isset($_SESSION['id'])) : ?>
+                      <li><a href="pages/inscription.php"><i class="material-icons">create</i> Inscription</a></li>
+                      <li><a href="pages/connexion.php"><i class="material-icons">login</i> Connexion</a></li>
+                  <?php else : ?>
+                      <li><a href="pages/profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
+                      <li><a href="pages/logout.php"><i class="material-icons">close</i> Déconnexion</a></li>
+                  <?php endif; ?>
                   <li><a href="pages/livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
                 </ul>
               </div>
@@ -74,7 +71,8 @@ session_start();
             <a class="grey-text text-lighten-4 right" href="https://www.youtube.com/channel/UCYVyQv2rUtCMxJAFSuOSpmg"> <i class="material-icons">play_circle_filled</i></a>
             </div>
           </div>
-        </footer>
+    </footer>
+
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>

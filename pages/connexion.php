@@ -112,15 +112,13 @@ if (isset($_POST['formConnexion'])) {
                 <div class="col l4 offset-l2 s12">
                     <ul>
                         <li><a href="../index.php"><i class="material-icons">keyboard_backspace</i> Accueil</a></li>
-                        <?php
-                        if (!isset($_SESSION['id'])) {
-                            echo '<li><a href="inscription.php"><i class="material-icons">create</i> Inscription</a></li>';
-                        } else {
-                            echo  '<li><a href="profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
-                    <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
-                        }
-                        ?>
-                        <li><a href="livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
+                        <?php if (!isset($_SESSION['id'])) : ?>
+                            <li><a href="inscription.php"><i class="material-icons">create</i> Inscription</a></li>
+                        <?php else : ?>
+                            <li><a href="profil.php"><i class="material-icons">assignment_ind</i> Profil</a></li>
+                            <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>
+                        <?php endif; ?>
+                            <li><a href="livre-or.php"><i class="material-icons">import_contacts</i> Livre d'Or</a></li>
                     </ul>
                 </div>
             </div>

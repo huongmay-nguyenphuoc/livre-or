@@ -1,40 +1,40 @@
 <?php
-session_start();
-try { //connexion bdd
-    $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
-
-if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form rempli
-
-    if ($_POST['password'] != $_POST['passwordverif']) { //vérif mdp
-        $erreur = 'Le mot de passe ne correspond pas';
-    } else { //récup données form
-        $newpseudo = htmlspecialchars($_POST['login']);
-        $newpassword = htmlspecialchars($_POST['password']);
-        $hashed_newpassword = password_hash(($newpassword), PASSWORD_DEFAULT);
-
-
-        $query = 'SELECT * FROM utilisateurs where login=?'; //récup données bdd
-        $checklogin = $bdd->prepare($query);
-        $checklogin->execute([$newpseudo]);
-        $usercheck = $checklogin->rowCount();
-
-        if (($_SESSION['login'] == $newpseudo and $usercheck == 1) or ($usercheck == 0)) { //si correspond, update
-
-            $query = 'UPDATE utilisateurs SET login = ?, password = ? WHERE id = ?';
-            $insertnewdata = $bdd->prepare($query);
-            $insertnewdata->execute(array($newpseudo, $hashed_newpassword, $_SESSION['id']));
-            $succes = $newpseudo . ', le changement a bien été enregistré.';
-        } else {
-            $erreur = "Cet identifiant existe déjà.";
-        }
+    session_start();
+    try { //connexion bdd
+        $bdd = new PDO('mysql:host=localhost;dbname=livreor;charset=utf8', 'root', '');
+    } catch (Exception $e) {
+        die('Erreur : ' . $e->getMessage());
     }
-} else {
-    $erreur = 'Remplissez tous les champs s\'il-vous-plaît.';
-}
+
+
+    if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form rempli
+
+        if ($_POST['password'] != $_POST['passwordverif']) { //vérif mdp
+            $erreur = 'Le mot de passe ne correspond pas';
+        } else { //récup données form
+            $newpseudo = htmlspecialchars($_POST['login']);
+            $newpassword = htmlspecialchars($_POST['password']);
+            $hashed_newpassword = password_hash(($newpassword), PASSWORD_DEFAULT);
+
+
+            $query = 'SELECT * FROM utilisateurs where login=?'; //récup données bdd
+            $checklogin = $bdd->prepare($query);
+            $checklogin->execute([$newpseudo]);
+            $usercheck = $checklogin->rowCount();
+
+            if (($_SESSION['login'] == $newpseudo and $usercheck == 1) or ($usercheck == 0)) { //si correspond, update
+
+                $query = 'UPDATE utilisateurs SET login = ?, password = ? WHERE id = ?';
+                $insertnewdata = $bdd->prepare($query);
+                $insertnewdata->execute(array($newpseudo, $hashed_newpassword, $_SESSION['id']));
+                $succes = $newpseudo . ', le changement a bien été enregistré.';
+            } else {
+                $erreur = "Cet identifiant existe déjà.";
+            }
+        }
+    } else {
+        $erreur = 'Remplissez tous les champs s\'il-vous-plaît.';
+    }
 ?>
 
 
@@ -61,45 +61,47 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
     <main id="mainProfil">
         <section class="section no-pad-bot valign-wrapper center mainSection">
             <article class="container">
-                <div class="row">
-                    <?php
-                    if (isset($_SESSION['id'])) {
-                        echo '<form class="col m6 offset-m3 s10 offset-s1" action="profil.php" method="post" id="formProf">
+               
+                    <?php if (isset($_SESSION['id'])): ?>
+                        <div class="row">
+                            <form class="col m6 offset-m3 s10 offset-s1" action="profil.php" method="post" id="formProf">
 
-                                <div class="row center">
-                                    <div class="input-field col s10 m6 offset-m3 offset-s1">
-                                    <input id="login" name="login" type="text" class="validate">
-                                    <label for="login">Login</label>
+                                    <div class="row center">
+                                        <div class="input-field col s10 m6 offset-m3 offset-s1">
+                                        <input id="login" name="login" type="text" class="validate">
+                                        <label for="login">Login</label>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <div class="row center">
-                                <div class="input-field col s10 m6 offset-m3 offset-s1">
-                                    <input id="password" name="password" type="password" class="validate">
-                                    <label for="password">Password</label>
-                                </div>
-                                <div class="input-field col s10 m6 offset-m3 offset-s1">
-                                    <input id="passwordverif" name="passwordverif" type="password" class="validate">
-                                    <label for="passwordverif">Vérification</label>
-                                </div>
-                                </div>
+                                    
+                                    <div class="row center">
+                                    <div class="input-field col s10 m6 offset-m3 offset-s1">
+                                        <input id="password" name="password" type="password" class="validate">
+                                        <label for="password">Password</label>
+                                    </div>
+                                    <div class="input-field col s10 m6 offset-m3 offset-s1">
+                                        <input id="passwordverif" name="passwordverif" type="password" class="validate">
+                                        <label for="passwordverif">Vérification</label>
+                                    </div>
+                                    </div>
 
-                                <div class="row center">
-                                <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formProfil" >Modifier</button>
-                                </div>
+                                    <div class="row center">
+                                        <button class="btn waves-effect waves-light pink lighten-3" type="submit" name="formProfil" >Modifier</button>
+                                    </div>
                             </form>
-                </div>';
-                            if (isset($erreur)) {
-                                echo '<p class="white-text">' . $erreur . '</p>';
-                            } elseif (isset($succes)) {
-                                echo  '<p class="white-text">' . $succes . '</p>';
-                            }
-                    
-                    } else {
-                        echo '<div class="row">
-                        <p class="pink lighten-2 col s12 z-depth-2" id="paragraphe">Qui êtes-vous ? Veuillez vous connecter</p>
-                        </div>';
-                    }
+                        </div>
+
+                    <?php else : ?>
+                        <div class="row">
+                        <p class="pink lighten-2 col s12 z-depth-2" id="paragraphe">Qui êtes-vous ? Veuillez vous <a href="connexion.php">connecter</a></p>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php
+                        if (isset($erreur) AND isset($_SESSION['id'])) {
+                            echo '<p class="white-text">' . $erreur . '</p>';
+                        } elseif (isset($succes)) {
+                            echo  '<p class="white-text">' . $succes . '</p>';
+                        }
                     ?>
             </article>
         </section>
@@ -124,7 +126,7 @@ if (isset($_POST['formProfil']) and isset($_POST['passwordverif'])) { //si form 
                         <?php
                         if (!isset($_SESSION['id'])) {
                             echo '<li><a href="inscription.php"><i class="material-icons">create</i> Inscription</a></li>
-                    <li><a href="connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
+                            <li><a href="connexion.php"><i class="material-icons">login</i> Connexion</a></li>';
                         } else {
                             echo  ' <li><a href="logout.php"><i class="material-icons">close</i> Déconnexion</a></li>';
                         }
